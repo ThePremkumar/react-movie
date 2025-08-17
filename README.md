@@ -16,16 +16,19 @@ A modern web application for discovering and exploring movies and TV shows. Buil
 ## 🚀 Technologies Used
 
 - **Frontend**: React.js
+- **Backend**: Appwrite (Database & Authentication)
 - **Deployment**: Vercel
 - **Styling**: CSS3/Tailwind CSS
 - **API Integration**: Movie database APIs (TMDB/OMDB)
-- **Build Tool**: Create React App or similar bundler
+- **Build Tool**: Vite
+- **Database**: Appwrite Database for search history and trending data
 
 ## 🏗️ Installation & Setup
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/ThePremkumar/react-movie.git
+   cd react-movie
    ```
 
 2. **Install dependencies**
@@ -38,17 +41,17 @@ A modern web application for discovering and exploring movies and TV shows. Buil
 3. **Environment Variables**
    Create a `.env` file in the root directory and add your API keys:
    ```env
-    VITE_TMDB_API_KEY=
-    VITE_APPWRITE_PROJECT_ID=
-    VITE_APPWRITE_DATABASE_ID=
-    VITE_APPWRITE_COLLECTION_ID=
+   VITE_TMDB_API_KEY=your_tmdb_api_key_here
+   VITE_APPWRITE_PROJECT_ID=your_appwrite_project_id
+   VITE_APPWRITE_DATABASE_ID=your_appwrite_database_id
+   VITE_APPWRITE_COLLECTION_ID=your_appwrite_collection_id
    ```
 
 4. **Start the development server**
    ```bash
-   npm start
+   npm run dev
    # or
-   yarn start
+   yarn dev
    ```
 
 5. **Build for production**
@@ -61,42 +64,101 @@ A modern web application for discovering and exploring movies and TV shows. Buil
 ## 📱 Usage
 
 1. **Browse Movies**: Explore trending, popular, or top-rated movies on the homepage
-2. **Search**: Use the search bar to find specific movies or TV shows
+2. **Enhanced Search**:
+    - Use the search bar to find specific movies or TV shows
+    - Search history is stored in Appwrite for faster subsequent searches
+    - Trending searches influence the trending algorithm
 3. **View Details**: Click on any title to see detailed information, cast, and crew
-4. **Categories**: Filter content by genres, release year, or ratings
-5. **Responsive Viewing**: Access the site on any device for optimal experience
+4. **Trending Algorithm**: Movies gain trending scores based on:
+    - Search frequency
+    - User interactions
+    - Real-time popularity data
+5. **Categories**: Filter content by genres, release year, or ratings
+6. **Responsive Viewing**: Access the site on any device for optimal experience
 
-## 🎯 API Integration
+## 🎯 API Integration & Backend
 
-This application integrates with movie databases to provide:
+This application integrates with multiple services:
+
+### TMDB API (The Movie Database)
 - Movie and TV show metadata
 - High-quality poster and backdrop images
 - Cast and crew information
 - User ratings and reviews
 - Streaming availability (where applicable)
 
+### Appwrite Backend Services
+- **Database**: Store search history and trending data
+- **Collections**: Manage movie favorites and user preferences
+- **Real-time Updates**: Live trending data synchronization
+- **Search Optimization**: Enhanced search functionality with cached results
+
 ## 🔧 Configuration
 
 ### Environment Variables
 
-| Variable                | Description | Required |
-|-------------------------|-------------|----------|
-| `VITE_APP_TMDB_API_KEY` | The Movie Database API key | Yes |
-| `VITE_APP_API_BASE_URL` | Base URL for API requests | Yes |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_TMDB_API_KEY` | The Movie Database API key | Yes |
+| `VITE_APPWRITE_PROJECT_ID` | Appwrite project identifier | Yes |
+| `VITE_APPWRITE_DATABASE_ID` | Appwrite database identifier | Yes |
+| `VITE_APPWRITE_COLLECTION_ID` | Appwrite collection identifier | Yes |
 
-### API Setup
+### TMDB API Setup
 
 1. Visit [The Movie Database (TMDB)](https://www.themoviedb.org/settings/api)
 2. Create an account and request an API key
 3. Add your API key to the `.env` file
 
+### Appwrite Backend Setup
+
+1. **Create Appwrite Account**
+    - Visit [Appwrite Console](https://cloud.appwrite.io/)
+    - Create a new account or sign in
+
+2. **Create New Project**
+   ```bash
+   # Create a new project in Appwrite console
+   # Note down the Project ID
+   ```
+
+3. **Setup Database**
+   ```bash
+   # Create a new database
+   # Create collections for:
+   # - Search History
+   # - Trending Movies
+   # - User Favorites
+   ```
+
+4. **Configure Collections**
+    - **Search Collection Attributes**:
+        - `query` (string): Search term
+        - `results` (string): JSON string of search results
+        - `timestamp` (datetime): When search was performed
+        - `popularity` (integer): Search frequency
+
+    - **Trending Collection Attributes**:
+        - `movieId` (string): TMDB movie ID
+        - `title` (string): Movie title
+        - `trendingScore` (integer): Trending calculation score
+        - `lastUpdated` (datetime): Last update timestamp
+
+5. **Set Permissions**
+    - Configure read/write permissions for collections
+    - Set up user authentication if needed
+
 ## 🚀 Deployment
 
-This project is optimized for Vercel deployment:
+This project is optimized for Vercel deployment with Appwrite backend:
 
 1. **Connect to Vercel**
     - Import your repository to Vercel
-    - Configure environment variables in the Vercel dashboard
+    - Configure environment variables in the Vercel dashboard:
+        - `VITE_TMDB_API_KEY`
+        - `VITE_APPWRITE_PROJECT_ID`
+        - `VITE_APPWRITE_DATABASE_ID`
+        - `VITE_APPWRITE_COLLECTION_ID`
     - Deploy automatically on every push to main branch
 
 2. **Manual Deployment**
@@ -104,6 +166,11 @@ This project is optimized for Vercel deployment:
    npm run build
    vercel --prod
    ```
+
+3. **Appwrite Production Setup**
+    - Ensure Appwrite project is configured for production
+    - Update CORS settings to include your Vercel domain
+    - Configure production database and collections
 
 ## 🤝 Contributing
 
@@ -120,6 +187,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - [The Movie Database (TMDB)](https://www.themoviedb.org/) for providing the movie data API
+- [Appwrite](https://appwrite.io/) for backend-as-a-service platform
 - [Vercel](https://vercel.com/) for hosting and deployment platform
 - React community for the amazing framework and ecosystem
 
