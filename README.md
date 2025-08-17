@@ -28,7 +28,6 @@ A modern web application for discovering and exploring movies and TV shows. Buil
 1. **Clone the repository**
    ```bash
    git clone https://github.com/ThePremkumar/react-movie.git
-   cd react-movie
    ```
 
 2. **Install dependencies**
