@@ -56,7 +56,7 @@ const App = () => {
             }
         } catch(error){
             console.log(`Error fetching movies: ${error}`);
-            setErrorMessage("Error fetching movies. Please try again later.");
+            setErrorMessage("Error fetching movies. Please try again later. Some Network issuse" );
         } finally {
             setIsLoading(false);
         }
