@@ -40,10 +40,11 @@ A modern web application for discovering and exploring movies and TV shows. Buil
 3. **Environment Variables**
    Create a `.env` file in the root directory and add your API keys:
    ```env
-   VITE_TMDB_API_KEY=your_tmdb_api_key_here
+   VITE_TMDB_API=your_tmdb_read_access_token_here
    VITE_APPWRITE_PROJECT_ID=your_appwrite_project_id
    VITE_APPWRITE_DATABASE_ID=your_appwrite_database_id
    VITE_APPWRITE_COLLECTION_ID=your_appwrite_collection_id
+   VITE_APPWRITE_ENDPOINT=your_appwrite_endpoint_here
    ```
 
 4. **Start the development server**
@@ -59,6 +60,17 @@ A modern web application for discovering and exploring movies and TV shows. Buil
    # or
    yarn build
    ```
+
+6. **Run with Docker**
+   You can also build and run the application containerized in production mode:
+   ```bash
+   # Build the docker image
+   docker build -t movie-suggestion-app .
+
+   # Run the container
+   docker run -d -p 8080:80 --name movie-app movie-suggestion-app
+   ```
+   Access the app at `http://localhost:8080`
 
 ## 📱 Usage
 
@@ -98,10 +110,11 @@ This application integrates with multiple services:
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `VITE_TMDB_API_KEY` | The Movie Database API key | Yes |
+| `VITE_TMDB_API` | The Movie Database Read Access Token (JWT) | Yes |
 | `VITE_APPWRITE_PROJECT_ID` | Appwrite project identifier | Yes |
 | `VITE_APPWRITE_DATABASE_ID` | Appwrite database identifier | Yes |
 | `VITE_APPWRITE_COLLECTION_ID` | Appwrite collection identifier | Yes |
+| `VITE_APPWRITE_ENDPOINT` | Appwrite endpoint URL | Yes |
 
 ### TMDB API Setup
 
